@@ -7,3 +7,7 @@ one:
 two:
   email: MyString
   password: MyString
+
+abdullah:
+  email: abdullah.th@me.com
+  password: 123
