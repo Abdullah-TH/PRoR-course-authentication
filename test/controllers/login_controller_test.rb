@@ -6,10 +6,18 @@ class LoginControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get create" do
+  test "should log in" do
     User.create!(email: "abdullah.th@me.com", password: "123")
     post login_index_url, params: { user: { email: "abdullah.th@me.com", password: "123" } }
     assert_redirected_to dashboard_index_url
     assert_equal "You are logged in!", flash[:notice]
+  end
+
+  test "should redirected to dashboard if already logged in" do
+    User.create!(email: "abdullah.th@me.com", password: "123")
+    post login_index_url, params: { user: { email: "abdullah.th@me.com", password: "123" } }
+    assert_redirected_to dashboard_index_url
+    get new_login_url
+    assert_redirected_to dashboard_index_url
   end
 end
