@@ -19,6 +19,11 @@ class LoginController < ApplicationController
     end
   end
 
+  def destroy
+    session[:user_id] = nil
+    redirect_to new_login_url
+  end
+
   private
 
   def user_params

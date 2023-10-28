@@ -1,2 +1,4 @@
 <h1>Welcome!</h1>
 <p>You are in the Dashboard!</p>
+
+<%= button_to "Log out?", login_path(session[:user_id]), method: :delete %>
