@@ -7,7 +7,7 @@ class LoginController < ApplicationController
     @user = User.find_by(email: user_params[:email], password: user_params[:password])
     if @user
       flash[:notice] = "You are logged in!"
-      render :new, status: :unprocessable_entity
+      redirect_to dashboard_index_url
     else
       flash[:notice] = "Wrong email or password"
       render :new, status: :unprocessable_entity
