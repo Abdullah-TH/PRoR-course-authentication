@@ -24,4 +24,12 @@ class LoginControllerTest < ActionDispatch::IntegrationTest
     get new_registration_url
     assert_redirected_to dashboard_index_url
   end
+
+  test "should log out" do
+    user = User.create(email: "abdullah.th@me.com", password: "123")
+    post login_index_url, params: { user: { email: "abdullah.th@me.com", password: "123" } }
+    assert_redirected_to dashboard_index_url
+    delete login_path(user.id)
+    assert_redirected_to new_login_url
+  end
 end
