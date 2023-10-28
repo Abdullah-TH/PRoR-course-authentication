@@ -7,7 +7,7 @@ class RegistrationController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:notice] = "user created"
-      render :new, status: :unprocessable_entity
+      redirect_to new_login_path
     else
       flash[:notice] = "something went wrong"
       render :new, status: :unprocessable_entity
