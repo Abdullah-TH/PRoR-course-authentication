@@ -17,7 +17,11 @@ class LoginControllerTest < ActionDispatch::IntegrationTest
     User.create!(email: "abdullah.th@me.com", password: "123")
     post login_index_url, params: { user: { email: "abdullah.th@me.com", password: "123" } }
     assert_redirected_to dashboard_index_url
+
     get new_login_url
+    assert_redirected_to dashboard_index_url
+
+    get new_registration_url
     assert_redirected_to dashboard_index_url
   end
 end
