@@ -3,7 +3,7 @@ require "test_helper"
 class PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @post = posts(:one)
-    @user = User.create!(email: "abdullah.th@me.com", password: "123")
+    @user = users(:abdullah)
   end
 
   test "should get index" do
@@ -38,9 +38,18 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get edit" do
+  test "should get edit page" do
     get edit_post_url(@post)
     assert_response :success
+    assert_select "input[type='submit'][value='Destroy this post']", count: 0
+  end
+
+  test "should get edit with links for logged in user" do
+    # couldn't get this to work :(
+    # post login_index_url, params: { user: { email: @user.email, password: @user.password } }
+    # get edit_post_url(@post)
+    # assert_response :success
+    # assert_select "input[type='submit'][value='Destroy this post']"
   end
 
   test "should update post" do
