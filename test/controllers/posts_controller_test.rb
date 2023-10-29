@@ -9,6 +9,14 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get posts_url
     assert_response :success
+    assert_select "a", text: "New post", count: 0
+  end
+
+  test "index for logged in user should show new post" do
+    post login_index_url, params: { user: { email: "abdullah.th@me.com", password: "123" } }
+    get posts_url
+    assert_response :success
+    assert_select "a", text: "New post"
   end
 
   test "should get new" do

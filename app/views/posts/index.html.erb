@@ -12,4 +12,6 @@
   <% end %>
 </div>
 
+<% if session[:user_id] %>
 <%= link_to "New post", new_post_path %>
+<% end %>
