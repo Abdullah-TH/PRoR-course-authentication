@@ -38,6 +38,11 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
+    unless user_allowed
+      flash[:notice] = "You are not allowed to do this action"
+      render :edit, status: :unprocessable_entity
+      return
+    end
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to post_url(@post), notice: "Post was successfully updated." }
@@ -51,6 +56,12 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
+    unless user_allowed
+      flash[:notice] = "You are not allowed to do this action"
+      render :edit, status: :unprocessable_entity
+      return
+    end
+
     @post.destroy
 
     respond_to do |format|
@@ -69,4 +80,8 @@ class PostsController < ApplicationController
     def post_params
       params.require(:post).permit(:title, :body)
     end
+
+  def user_allowed
+    @post.user_id == session[:user_id]
+  end
 end
